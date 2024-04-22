@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuiqq0eaj81hk"]
+
+[ext_resource type="Script" path="res://scenes/character/character.gd" id="1_e2sjw"]
+[ext_resource type="PackedScene" uid="uid://dkew8064vbdbq" path="res://scenes/character/character_mesh.tscn" id="2_mddej"]
+[ext_resource type="AudioStream" uid="uid://bkgj1v1ye5s1p" path="res://assets/user_interfaces/audio/scratch_003.ogg" id="3_sy6dd"]
+[ext_resource type="AudioStream" uid="uid://10ogxhlco6pu" path="res://assets/user_interfaces/audio/toggle_003.ogg" id="4_erxga"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8o5nb"]
+radius = 0.3
+height = 1.0
+
+[node name="Character" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_e2sjw")
+
+[node name="CharacterMesh" parent="." instance=ExtResource("2_mddej")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("CapsuleShape3D_8o5nb")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="WalkAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_sy6dd")
+pitch_scale = 0.4
+bus = &"SFX"
+
+[node name="JumpAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_erxga")
+pitch_scale = 0.4
+bus = &"SFX"

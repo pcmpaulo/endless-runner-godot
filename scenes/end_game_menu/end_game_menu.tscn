@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://6gtroobycras"]
+
+[ext_resource type="Script" path="res://scenes/end_game_menu/end_game_menu.gd" id="1_5xe5o"]
+[ext_resource type="PackedScene" uid="uid://da7j1effokd3f" path="res://scenes/user_interface_sounds/user_interface_sounds.tscn" id="2_jgutf"]
+[ext_resource type="Theme" uid="uid://dngtc48jim2jc" path="res://assets/themes/main_menu_theme.tres" id="3_hlusc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4elua"]
+
+[node name="EndGameMenu" type="CanvasLayer"]
+script = ExtResource("1_5xe5o")
+
+[node name="UserInterfaceSounds" parent="." node_paths=PackedStringArray("base_node") instance=ExtResource("2_jgutf")]
+base_node = NodePath("..")
+
+[node name="CenterContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_hlusc")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4elua")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Score" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Final Score: "
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Play" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Exit" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

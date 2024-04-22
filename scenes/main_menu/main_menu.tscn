@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://byrv84hh47tq"]
+
+[ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_wcjs1"]
+[ext_resource type="Theme" uid="uid://dngtc48jim2jc" path="res://assets/themes/main_menu_theme.tres" id="2_bgysv"]
+[ext_resource type="PackedScene" uid="uid://da7j1effokd3f" path="res://scenes/user_interface_sounds/user_interface_sounds.tscn" id="2_q0l2r"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_wcjs1")
+
+[node name="UserInterfaceSounds" parent="." node_paths=PackedStringArray("base_node") instance=ExtResource("2_q0l2r")]
+base_node = NodePath("..")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bgysv")
+
+[node name="TitleMarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="TItle" type="Label" parent="PanelContainer/TitleMarginContainer"]
+layout_mode = 2
+text = "Endless Runner"
+horizontal_alignment = 1
+
+[node name="ActionsMarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ActionsMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="Start" type="Button" parent="PanelContainer/ActionsMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="Settings" type="Button" parent="PanelContainer/ActionsMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Exit" type="Button" parent="PanelContainer/ActionsMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="PanelContainer/ActionsMarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="PanelContainer/ActionsMarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="PanelContainer/ActionsMarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://ryg01aaidwqb"]
+
+[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_vmp0j"]
+[ext_resource type="PackedScene" uid="uid://lwtsi0uyaanl" path="res://scenes/in_game_menu/in_game_menu.tscn" id="2_dn4st"]
+[ext_resource type="Theme" uid="uid://dngtc48jim2jc" path="res://assets/themes/main_menu_theme.tres" id="3_t4tgo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rgang"]
+sky_top_color = Color(0.490196, 0.67451, 0.960784, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+sky_cover_modulate = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_ulbyy"]
+sky_material = SubResource("ProceduralSkyMaterial_rgang")
+
+[sub_resource type="Environment" id="Environment_ep26k"]
+background_mode = 1
+background_color = Color(0.831373, 0.831373, 0.831373, 1)
+sky = SubResource("Sky_ulbyy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpp1a"]
+
+[node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.221685, -0.0181813, 0.509697)
+script = ExtResource("1_vmp0j")
+
+[node name="InGameMenu" parent="." instance=ExtResource("2_dn4st")]
+layer = 2
+visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ep26k")
+
+[node name="Platforms" type="Node3D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_right = 10.0
+offset_bottom = 23.0
+theme = ExtResource("3_t4tgo")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kpp1a")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 32
+
+[node name="Score" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "0"
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
